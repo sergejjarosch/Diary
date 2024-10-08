@@ -21,7 +21,11 @@ namespace DiaryApp.Controllers
 
         public IActionResult Create() 
         {
-            return View();
+            var model = new DiaryEntry //neur Eintrag wird mit jetzigem Datum gesetzt
+            {
+                CreatedDate = DateTime.Now //Datum aus Model auf Jetzt
+            };
+            return View(model); // Der Vorausgefuellte Eintrag wird in das View uebergeben
         }
 
         [HttpPost]
