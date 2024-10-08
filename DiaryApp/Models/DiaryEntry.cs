@@ -6,11 +6,13 @@ namespace DiaryApp.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the title")]
         public string Title { get; set; } = string.Empty;
-        [Required]
+
+        [Required(ErrorMessage = "Please enter the content")]
         public string Content { get; set; } = string.Empty ;
-        [Required]
+
+        [Required(ErrorMessage = "Please enter the date")]
         public DateTime CreatedDate { get; set; } = DateTime.Now ;
     }
 }
