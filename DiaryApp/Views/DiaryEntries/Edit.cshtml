@@ -6,12 +6,12 @@
         <div class="col-md-8 m-xl-auto">
             <div class="card shadow">
                 <div class="card-header bg-light ">
-                    <h2>Create Diary Entry</h2>
+                    <h2>Edit Diary Entry</h2>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Edit" method="post">
                         <!--  <div asp-validation-summary="All" class="text-danger"></div>  -->
-                        
+
                         <div class="form-group mb-3">
                             <label asp-for="Title" class="form-label">Title</label>
                             <input asp-for="Title" class="form-control" placeholder="Enter a title" />
@@ -24,23 +24,31 @@
                         </div>
                         <div class="form-group mb-3">
                             <label asp-for="CreatedDate" class="form-label">Date</label>
-                            <input asp-for="CreatedDate" class="form-control" type="date" value="@Model.CreatedDate.ToString("yyyy-MM-dd")"/>
-                            <!-- Hier wird das Datum korrekt im ISO-Format (yyyy-MM-dd) übergeben,
-                                das von HTML für Eingabefelder vom Typ date erwartet wird. 
-                                Damit funktioniert die Vorausfüllung des aktuellen Datums. -->
-                            
+                            <input asp-for="CreatedDate" class="form-control" type="date" />
                             <span asp-validation-for="CreatedDate" class="text-danger"></span>  <!-- Validation Text-->
                         </div>
                         <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-outline-primary">Create</button>
-                            <a asp-controller="DiaryEntries" asp-action="Index" class="btn btn-outline-light">Cancel</a>
+                            <div class="align-items-lg-start">
+                                <button type="submit" class="btn btn-outline-primary">Edit</button>
+                                <a asp-controller="DiaryEntries" asp-action="Index" class="btn btn-outline-light">Cancel</a>
+                            </div>
+
+                            <a asp-controller="DiaryEntries" asp-action="Delete" asp-route-id="@Model.Id" onclick="return confirmDelete(event)" class="text-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                                Delete
+                                </a>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("_DeleteConfirmationModal")
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
